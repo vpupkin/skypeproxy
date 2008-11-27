@@ -1,0 +1,1 @@
+mvn -cpu -e  deploy:deploy-file -DgroupId=com.skype -DartifactId=skype-full -Dversion=1.0 -Dpackaging=jar -Dfile=skype_full.jar -Durl=file://c://m2-repo.EXPORT
