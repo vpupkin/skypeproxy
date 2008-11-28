@@ -13,17 +13,15 @@ import com.skype.SkypeException;
 import com.skype.Stream;
 
 /** 
- * skypeproxy(1)                    communication                   skypeproxy(1)
-
-
+ 
 
 NAME
        skypeproxy - forwards tcp connections over skype
 
 SYNTAX
-       skypeproxy <ID> send <contact> <localport> [<remotehost>] [<remoteport>]
+       skypeproxy <ID> send <contact> <localport> <host> <port>
 
-       skypeproxy <ID> listen <contact>  <host> <port>
+       skypeproxy <ID> listen <contact>  [<remotehost>] [<remoteport>]
 
 
 DESCRIPTION
@@ -75,10 +73,7 @@ COPYRIGHT
 
 SEE ALSO
        skype(1)
-
-
-
-Jonathan Verner                      0.1.0                       skypeproxy(1) 
+ 
  */
 public class SkypeProxy {
 	
@@ -87,7 +82,7 @@ public class SkypeProxy {
 	static Log log = LogFactory.getLog(SkypeProxy.class);
 
 	public static void main(String [] args) throws Exception{
-		if (!(args.length == 4 || args.length == 6)){
+		if (!(args.length == 5 || args.length == 6)){
 			usage();
 			return;
 		}
@@ -134,21 +129,21 @@ public class SkypeProxy {
             	  }
               }
               
-              application.setData(TunnelServer.HOST, HOST);
-              application.setData(TunnelServer.PORT, PORT);
-              application.setData(TunnelServer.LISTENHOST, "LOCALHOST");
-              application.setData(TunnelServer.LISTENPORT, ""+LOCALPORT);
+  
               log.info("forwarding to ["+CONTACT+"]..");
-              Stream skypeStream = application.connect(toFriend )[0]; 
-              skypeStream.setData(TunnelServer.HOST, HOST);
-              skypeStream.setData(TunnelServer.PORT, PORT);
-              skypeStream.setData(TunnelServer.LISTENHOST, "LOCALHOST");
-              skypeStream.setData(TunnelServer.LISTENPORT, ""+LOCALPORT);
-              
+              Stream skypeStream = application.connect(toFriend )[0];
+              // send initial message
+              skypeStream.send(""+
+            		  TunnelServer.HOST+"="+HOST+TunnelServer.EOL+
+            		  TunnelServer.PORT+"="+ PORT+TunnelServer.EOL+
+            		  TunnelServer.LISTENHOST+"="+ "LOCALHOST"+ TunnelServer.EOL
+            		  );
+               
               SkypeRelay tc = new SkypeRelay(skypeStream,sc.getOutputStream(),sc.getInputStream(),System.out);
               skypeStream.addStreamListener(tc);
   			  String stringFromTo = "*:"+LOCALPORT+"->"+CONTACT+"@"+HOST+":"+PORT;
 			  new Thread(tc,stringFromTo ).start();	
+			  log.debug("NEW TUNNEL localhost:"+LOCALPORT+" ->"+toFriend.getId()+"@"+HOST+":"+PORT+" inited.");
             }
         	
         	
