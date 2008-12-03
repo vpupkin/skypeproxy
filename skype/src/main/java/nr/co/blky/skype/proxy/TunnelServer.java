@@ -12,6 +12,7 @@ public class TunnelServer implements ApplicationListener {
 	static final String PORT = "port";
 	static final String LISTENPORT	= "listenport";
 	public static final String EOL = "\n";
+	public static final String ID = "SiD";
 	
 	static Log log = LogFactory.getLog(TunnelServer.class);
 	private String contact;
@@ -31,8 +32,9 @@ public class TunnelServer implements ApplicationListener {
 	 * TODO use contact
 	 */
 	public void connected(Stream stream) throws SkypeException{ 
+			
 	      // connect to the thing I'm tunnelling for 
-			log.debug("connected:"+stream.getApplication()+stream);
+			log.fatal("connected: A::"+stream.getApplication()+" SiD::"+stream.getId()+"{"+stream+"}");
 			SkypeRelay sr = new SkypeRelay ( 	stream,  	System.out  	); 
 			stream.addStreamListener(sr);
 			new Thread(sr,contact+"@skypeproxy#"+id ++).start(); 

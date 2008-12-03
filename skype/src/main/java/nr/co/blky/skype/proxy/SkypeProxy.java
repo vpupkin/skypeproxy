@@ -1,5 +1,8 @@
 package nr.co.blky.skype.proxy;
  
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -21,8 +24,15 @@ NAME
 SYNTAX
        skypeproxy <ID> send <contact> <localport> <host> <port>
 
-       skypeproxy <ID> listen <contact>  [<remotehost>] [<remoteport>]
+       skypeproxy <ID> listen <contact>  [<remotehost> <remoteport>]
 
+SAMLE
+	 server :
+	 
+	 java -jar skypeproxy-X.X.X.jar 
+	  MYMAILRELAY listen all localhost 25
+	 java -jar skypeproxy-X.X.X.jar 
+	  MYMAILRELAY send geshaskype 2323 127.0.0.1  22
 
 DESCRIPTION
        When  run  in the send mode, the program forwards connections to local-
@@ -117,7 +127,7 @@ public class SkypeProxy {
             while (true) {
             	log.info("listening port "+LOCALPORT+"...");
               // accept the connection from my client
-              Socket sc = ss.accept ();
+              final Socket sc = ss.accept ();
               log.info("accepted conenction ...");
               Friend toFriend = null;
               //search friend
@@ -131,18 +141,23 @@ public class SkypeProxy {
               
   
               log.info("forwarding to ["+CONTACT+"]..");
-              Stream skypeStream = application.connect(toFriend )[0];
+              final Stream skypeStream = application.connect(toFriend )[0];
               // send initial message
+              String SiD = ""+((int)(Math.random()*Integer.MAX_VALUE));
               skypeStream.send(""+
             		  TunnelServer.HOST+"="+HOST+TunnelServer.EOL+
             		  TunnelServer.PORT+"="+ PORT+TunnelServer.EOL+
+            		  TunnelServer.ID+"="+ SiD+TunnelServer.EOL+
             		  TunnelServer.LISTENHOST+"="+ "LOCALHOST"+ TunnelServer.EOL
             		  );
                
-              SkypeRelay tc = new SkypeRelay(skypeStream,sc.getOutputStream(),sc.getInputStream(),System.out);
+            final PrintStream traceOut = new PrintStream(new File("trace.log"));
+			final SkypeRelay tc = new SkypeRelay(skypeStream,sc.getOutputStream(),sc.getInputStream(),traceOut );
+				tc.SiD = SiD;
               skypeStream.addStreamListener(tc);
-  			  String stringFromTo = "*:"+LOCALPORT+"->"+CONTACT+"@"+HOST+":"+PORT;
-			  new Thread(tc,stringFromTo ).start();	
+  			  String stringFromTo = "*:"+LOCALPORT+"->"+CONTACT+"@"+HOST+":"+PORT+" SiD:"+skypeStream.getId();
+  			  final Thread relayTmp = new Thread(tc,stringFromTo );
+  			  relayTmp .start();
 			  log.debug("NEW TUNNEL localhost:"+LOCALPORT+" ->"+toFriend.getId()+"@"+HOST+":"+PORT+" inited.");
             }
         	
