@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>nr.co.blky</groupId>
@@ -8,12 +9,60 @@
 	<packaging>war</packaging>
 	<description>Skype proxy - TCP tunneling by using Skype(C)API
 	</description>
+	<issueManagement>
+		<system>googlecode.com</system>
+		<url>http://code.google.com/p/skypeproxy/issues/list
+		</url>
+	</issueManagement>
+	<developers>
+		<developer>
+			<id>VIP</id>
+			<name>Vasja</name>
+			<email>vasiliij.pupkin@googlemail.com
+			</email>
+			<url>http://skypeproxy.googlecode.com/
+			</url>
+			<organization>SkypeProxy Ltd.</organization>
+			<organizationUrl>http://skypeproxy.googlecode.com/
+			</organizationUrl>
+			<timezone>UTC/GMT +1 hour</timezone>
+			<roles>
+				<role>CEO</role>
+			</roles>
+		</developer>
+	</developers>
+	<licenses>
+		<license>
+			<name>GPL</name>
+			<url>http://www.gnu.org/copyleft/gpl.html
+			</url>
+			<comments>GNU General Public License</comments>
+		</license>
+	</licenses>
 	<scm>
-		<connection>scm:svn:https://skypeproxy.googlecode.com/svn/tags/skypeproxy-0.0.5</connection>
-		<developerConnection>scm:svn:https://skypeproxy.googlecode.com/svn/tags/skypeproxy-0.0.5</developerConnection>
-		<url>scm:svn:https://skypeproxy.googlecode.com/svn/tags/skypeproxy-0.0.5</url>
+		<connection>scm:svn:https://skypeproxy.googlecode.com/svn/trunk
+		</connection>
+		<developerConnection>
+			scm:svn:https://skypeproxy.googlecode.com/svn/trunk
+		</developerConnection>
+		<tag>scm:svn:https://skypeproxy.googlecode.com/svn/tags
+		</tag>
+		<url>scm:svn:https://skypeproxy.googlecode.com/svn/trunk
+		</url>
 	</scm>
+	<organization>
+		<name>WWWGoogleCode</name>
+		<url>https://skypeproxy.googlecode.com/svn/site
+		</url>
+	</organization>
 	<build>
+  		<extensions>
+			<extension>
+				<groupId>org.jvnet.wagon-svn</groupId>
+				<artifactId>wagon-svn</artifactId>
+				<version>1.8</version>
+			</extension>
+		</extensions>	
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -80,4 +129,24 @@
 		</dependency>
 
 	</dependencies>
+
+	<distributionManagement>
+		<site>
+			<id>googlecode.svn.server</id>
+			<url>svn:https://skypeproxy.googlecode.com/svn/site
+			</url>
+		</site>
+		<snapshotRepository>
+			<id>googlecode.svn.server</id>
+			<url>
+				svn:https://skypeproxy.googlecode.com/svn/snapshot-repository
+			</url>
+		</snapshotRepository>
+		<repository>
+			<id>googlecode.svn.server</id>
+			<url>
+				svn:https://skypeproxy.googlecode.com/svn/release-repository
+			</url>
+		</repository>
+	</distributionManagement>
 </project>
