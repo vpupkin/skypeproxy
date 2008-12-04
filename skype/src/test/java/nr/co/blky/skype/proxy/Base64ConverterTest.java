@@ -1,11 +1,14 @@
 package nr.co.blky.skype.proxy;
+ 
 
-import java.util.Arrays;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import junit.framework.TestCase;
 
 public class Base64ConverterTest extends TestCase {
 
+	static Log log = LogFactory.getLog(Base64Converter.class);
 	public void testB2S() {
 		Base64Converter b64Tmp = new Base64Converter ();
 		String data = "test";
@@ -31,7 +34,7 @@ public class Base64ConverterTest extends TestCase {
 			String dataS = b64Tmp .b2s(data ,0,data.length);
 			byte[]  expected = data;
 			byte[] actual = b64Tmp.s2b(dataS);
-			System.out.println(new String(expected));
+			log.debug(new String(expected));
 			assertEquals(new String(expected)+"!="+new String(actual),new String(expected), new String(actual));
 		}
 	}
