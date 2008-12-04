@@ -1,15 +1,25 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
- 	<groupId>nr.co.blky</groupId>
+	<groupId>nr.co.blky</groupId>
 	<artifactId>skypeproxy</artifactId>
 	<version>0.0.5-SNAPSHOT</version>
 	<name>SkypeProxy</name>
 	<packaging>war</packaging>
-	<description>Skype proxy</description>
-		<build>		<pluginManagement>
+	<description>Skype proxy - TCP tunneling by using Skype(C)API
+	</description>
+	<scm>
+		<connection>scm:svn:https://skypeproxy.googlecode.com/svn/trunk/skype
+		</connection>
+		<developerConnection>
+			scm:svn:https://skypeproxy.googlecode.com/svn/trunk/skype
+		</developerConnection>
+		<url>scm:svn:https://skypeproxy.googlecode.com/svn/trunk/skype
+		</url>
+	</scm>
+	<build>
+		<pluginManagement>
 			<plugins>
 				<plugin>
 					<artifactId>maven-compiler-plugin</artifactId>
@@ -19,8 +29,8 @@
 					</configuration>
 				</plugin>
 			</plugins>
-		</pluginManagement>	
-		
+		</pluginManagement>
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -28,9 +38,11 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>nr.co.blky.skype.proxy.SkypeProxy</mainClass>
+							<mainClass>nr.co.blky.skype.proxy.SkypeProxy
+							</mainClass>
 							<addClasspath>true</addClasspath>
-							<classpathPrefix>${pom.artifactId}-${pom.version}/WEB-INF/lib</classpathPrefix>
+							<classpathPrefix>${pom.artifactId}-${pom.version}/WEB-INF/lib
+							</classpathPrefix>
 						</manifest>
 						<manifestEntries>
 							<Class-Path>config/</Class-Path>
@@ -41,36 +53,36 @@
 		</plugins>
 	</build>
 	<dependencies>
-	<dependency>
-    <groupId>commons-codec</groupId>
-    <artifactId>commons-codec</artifactId>
-    <version>20041127.091804</version>
-</dependency>
-					<dependency>
-						<groupId>org.apache.axis</groupId>
-						<artifactId>axis</artifactId>
-						<version>1.4</version>
-					</dependency>
-<dependency>
-    <groupId>org.ostermiller</groupId>
-    <artifactId>utils</artifactId>
-    <version>1.07.00</version>
-</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>20041127.091804</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis</groupId>
+			<artifactId>axis</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ostermiller</groupId>
+			<artifactId>utils</artifactId>
+			<version>1.07.00</version>
+		</dependency>
 		<dependency>
 			<groupId>geronimo</groupId>
 			<artifactId>commons-logging</artifactId>
 			<version>1.0.4</version>
-		</dependency>	
+		</dependency>
 		<dependency>
 			<groupId>com.skype</groupId>
 			<artifactId>skype-full</artifactId>
 			<version>1.0</version>
-		</dependency>	
+		</dependency>
 		<dependency>
 			<groupId>soap</groupId>
 			<artifactId>soap</artifactId>
 			<version>2.3.1</version>
 		</dependency>
-    
+
 	</dependencies>
 </project>
