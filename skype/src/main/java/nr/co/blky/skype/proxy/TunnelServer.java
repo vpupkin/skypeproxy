@@ -34,7 +34,7 @@ public class TunnelServer implements ApplicationListener {
 	public void connected(Stream stream) throws SkypeException{ 
 			
 	      // connect to the thing I'm tunnelling for 
-			log.fatal("connected: A::"+stream.getApplication()+" SiD::"+stream.getId()+"{"+stream+"}");
+			log.debug("connected: A::"+stream.getApplication()+" SiD::"+stream.getId()+"{"+stream+"}");
 			SkypeRelay sr = new SkypeRelay ( 	stream,  	System.out  	); 
 			stream.addStreamListener(sr);
 			new Thread(sr,contact+"@skypeproxy#"+id ++).start(); 

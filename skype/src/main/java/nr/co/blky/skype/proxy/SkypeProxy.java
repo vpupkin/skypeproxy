@@ -96,7 +96,7 @@ public class SkypeProxy {
 			usage();
 			return;
 		}
-        Skype.setDebug(true);
+        Skype.setDebug(false);
         Skype.setDeamon(false);
 		// par#0
         String ID = args[0];
@@ -155,7 +155,7 @@ public class SkypeProxy {
 			final SkypeRelay tc = new SkypeRelay(skypeStream,sc.getOutputStream(),sc.getInputStream(),traceOut );
 				tc.SiD = SiD;
               skypeStream.addStreamListener(tc);
-  			  String stringFromTo = "*:"+LOCALPORT+"->"+CONTACT+"@"+HOST+":"+PORT+" SiD:"+skypeStream.getId();
+  			  String stringFromTo = "*:"+LOCALPORT+"->"+CONTACT+"@"+HOST+":"+PORT+" SiD:"+SiD+ "//getID="+skypeStream.getId();
   			  final Thread relayTmp = new Thread(tc,stringFromTo );
   			  relayTmp .start();
 			  log.debug("NEW TUNNEL localhost:"+LOCALPORT+" ->"+toFriend.getId()+"@"+HOST+":"+PORT+" inited.");
