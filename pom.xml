@@ -14,6 +14,17 @@
 		<url>http://code.google.com/p/skypeproxy/issues/list
 		</url>
 	</issueManagement>
+	<repositories>
+		<!-- waron-svn id located here -->
+		<repository>
+			<id>ZKgoogle</id>
+			<name>zkossAtGoogleCode</name>
+			<url>
+				http://zkoss.googlecode.com/svn/release-repository/
+			</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
 	<developers>
 		<developer>
 			<id>VIP</id>
@@ -56,6 +67,7 @@
 		</url>
 	</organization>
 	<build>
+<!--
   		<extensions>
 			<extension>
 				<groupId>org.jvnet.wagon-svn</groupId>
@@ -63,6 +75,7 @@
 				<version>1.8</version>
 			</extension>
 		</extensions>	
+-->
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -112,11 +125,18 @@
 			<artifactId>utils</artifactId>
 			<version>1.07.00</version>
 		</dependency>
+<dependency>
+    <groupId>commons-logging</groupId>
+    <artifactId>commons-logging</artifactId>
+    <version>1.1.1</version>
+</dependency>
+<!--
 		<dependency>
 			<groupId>geronimo</groupId>
 			<artifactId>commons-logging</artifactId>
 			<version>1.0.4</version>
 		</dependency>
+-->
 		<dependency>
 			<groupId>com.skype</groupId>
 			<artifactId>skype-full</artifactId>
