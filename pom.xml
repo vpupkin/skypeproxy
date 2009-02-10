@@ -15,6 +15,16 @@
 		</url>
 	</issueManagement>
 	<repositories>
+		<!-- vip-repo -->
+		<repository>
+			<id>VIP</id>
+			<name>vip</name>
+			<url>
+https://vip.office-on-the.net/artifactory-2.0.0/repo/
+			</url>
+			<layout>default</layout>
+		</repository>
+
 		<!-- waron-svn id located here -->
 		<repository>
 			<id>ZKgoogle</id>
@@ -110,10 +120,15 @@
 		</plugins>
 	</build>
 	<dependencies>
+                <dependency>
+                        <groupId>junit</groupId>
+                        <artifactId>junit</artifactId>
+                        <version>3.8.1</version>
+                </dependency>
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
-			<version>20041127.091804</version>
+			<version>1.3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.axis</groupId>
