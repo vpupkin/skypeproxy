@@ -1,10 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>nr.co.blky</groupId>
 	<artifactId>skypeproxy</artifactId>
-	<version>0.0.6-SNAPSHOT</version>
+	<version>0.0.6</version>
 	<name>SkypeProxy</name>
 	<packaging>war</packaging>
 	<description>Skype proxy - TCP tunneling by using Skype(C)API
@@ -61,15 +60,11 @@ https://vip.office-on-the.net/artifactory-2.0.0/repo/
 		</license>
 	</licenses>
 	<scm>
-		<connection>scm:svn:https://skypeproxy.googlecode.com/svn/trunk
-		</connection>
-		<developerConnection>
-			scm:svn:https://skypeproxy.googlecode.com/svn/trunk
-		</developerConnection>
+		<connection>scm:svn:https://skypeproxy.googlecode.com/svn/tags/skypeproxy-0.0.6</connection>
+		<developerConnection>scm:svn:https://skypeproxy.googlecode.com/svn/tags/skypeproxy-0.0.6</developerConnection>
 		<tag>scm:svn:https://skypeproxy.googlecode.com/svn/tags
 		</tag>
-		<url>scm:svn:https://skypeproxy.googlecode.com/svn/trunk
-		</url>
+		<url>scm:svn:https://skypeproxy.googlecode.com/svn/tags/skypeproxy-0.0.6</url>
 	</scm>
 	<organization>
 		<name>WWWGoogleCode</name>
