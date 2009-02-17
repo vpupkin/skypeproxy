@@ -19,7 +19,7 @@
 			<id>VIP</id>
 			<name>vip</name>
 			<url>
-https://vip.office-on-the.net/artifactory-2.0.0/repo/
+				https://vip.office-on-the.net/artifactory-2.0.0/repo/
 			</url>
 			<layout>default</layout>
 		</repository>
@@ -70,15 +70,23 @@ https://vip.office-on-the.net/artifactory-2.0.0/repo/
 		</url>
 	</organization>
 	<build>
-<!--
-  		<extensions>
+<!-- SVN -->
+        <extensions>
 			<extension>
-				<groupId>org.jvnet.wagon-svn</groupId>
-				<artifactId>wagon-svn</artifactId>
-				<version>1.8</version>
+
+				<groupId>org.apache.maven.wagon</groupId>
+
+				<artifactId>wagon-webdav</artifactId>
+
+				<version>1.0-beta-2</version>
+
 			</extension>
-		</extensions>	
--->
+            <extension>
+                <groupId>org.jvnet.wagon-svn</groupId>
+                <artifactId>wagon-svn</artifactId>
+                <version>1.8</version>
+            </extension>
+        </extensions>
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -160,21 +168,16 @@ https://vip.office-on-the.net/artifactory-2.0.0/repo/
 
 	<distributionManagement>
 		<site>
-			<id>googlecode.svn.server</id>
-			<url>svn:https://skypeproxy.googlecode.com/svn/site
-			</url>
+			<id>googlecode.svn.server.C</id>
+			<url>dav:https://skypeproxy.googlecode.com/svn/site</url>
 		</site>
 		<snapshotRepository>
-			<id>googlecode.svn.server</id>
-			<url>
-				svn:https://skypeproxy.googlecode.com/svn/snapshot-repository
-			</url>
+			<id>googlecode.svn.server.B</id>
+			<url>dav:https://skypeproxy.googlecode.com/svn/snapshot-repository</url>
 		</snapshotRepository>
 		<repository>
-			<id>googlecode.svn.server</id>
-			<url>
-				svn:https://skypeproxy.googlecode.com/svn/release-repository
-			</url>
+			<id>googlecode.svn.server.A</id>
+			<url>dav:https://skypeproxy.googlecode.com/svn/release-repository</url>
 		</repository>
 	</distributionManagement>
 </project>
