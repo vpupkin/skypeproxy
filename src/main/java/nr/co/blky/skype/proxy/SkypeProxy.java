@@ -1,7 +1,6 @@
 package nr.co.blky.skype.proxy;
  
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.File; 
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -11,8 +10,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.skype.Application;
 import com.skype.Friend;
-import com.skype.Skype;
-import com.skype.SkypeException;
+import com.skype.Skype; 
 import com.skype.Stream;
 
 /** 
@@ -92,36 +90,31 @@ public class SkypeProxy {
 	static Log log = LogFactory.getLog(SkypeProxy.class);
 
 	public static void main(String [] args) throws Exception{
-		if (!(args.length == 5 || args.length == 6)){
+		if (!(args.length == 1 || args.length == 5)){
 			usage();
 			return;
 		}
         Skype.setDebug(false);
         Skype.setDeamon(false);
-		// par#0
-        String ID = args[0];
-        Application application = Skype.addApplication(ID);
+        String idTmp = "GESHA";//""+SkypeProxy.class.getName().hashCode(); 
+        Application application = Skype.addApplication(idTmp);
         
-        //par#1
-        String COMMAND = args[1];
+        //par#0
+        String COMMAND = args[0];
         /*
-         *   skypeproxy <ID> listen <contact>
+         *   skypeproxy listen 
          */
         if (LISTEN.equals(COMMAND)){
-        	String  CONTACT = args[2];
+        	application.addApplicationListener(new TunnelServer(System.out));
+        }else
+        if(SEND.equals(COMMAND)){
+            /*
+             *   skypeproxy send <contact> <localport> <remotehost> <remoteport>
+             */
+        	String  CONTACT = args[1];
+        	int  LOCALPORT = Integer.parseInt( args[2] ); 
         	String  HOST = args[3];
         	String  PORT = args[4];
-
-        	application.addApplicationListener(new TunnelServer(CONTACT, HOST, PORT));
-        }else
-        /*
-         *   skypeproxy <ID> send <contact> <localport> <remotehost> <remoteport>
-         */
-        if(SEND.equals(COMMAND)){
-        	String  CONTACT = args[2];
-        	int  LOCALPORT = Integer.parseInt( args[3] ); 
-        	String  HOST = args[4];
-        	String  PORT = args[5];
         	
             ServerSocket ss = new ServerSocket (LOCALPORT);
             while (true) {
@@ -168,8 +161,8 @@ public class SkypeProxy {
 
 	private static void usage() {
 		String text = "SYNTAX\n" +
-				"       skypeproxy <ID> send <contact> <localport> <remoteport>\n" +
-				"       skypeproxy <ID> listen <contact>\n";
+				"       skypeproxy send <contact> <localport> <remotehost> <remoteport>\n" +
+				"       skypeproxy listen \n";
 		System.out.println(text );
 	}
 

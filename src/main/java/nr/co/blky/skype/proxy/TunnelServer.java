@@ -1,4 +1,6 @@
 package nr.co.blky.skype.proxy; 
+import java.io.PrintStream;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory; 
 import com.skype.ApplicationListener;
@@ -15,33 +17,28 @@ public class TunnelServer implements ApplicationListener {
 	public static final String ID = "SiD";
 	
 	static Log log = LogFactory.getLog(TunnelServer.class);
-	private String contact;
-	String tunnelhost = "127.0.0.1"; 
-	int tunnelport = Integer.parseInt( "22");
-	private static int id = 0;
- 	
+  	private static int id = 0;
+	PrintStream out = System.out;
+  	SkypeRelay  sr =null;
 	
-	public TunnelServer(String contact, String host2, String port2) {
-		this.contact = contact;
-		this.tunnelhost = host2;
-		this.tunnelport = Integer.parseInt(port2);
-	}
+	public TunnelServer(PrintStream out) {
+		this.out = out;
+ 	}
+
 
 	/**
-	 * accept all connections 
-	 * TODO use contact
+	 * accept all connections
 	 */
 	public void connected(Stream stream) throws SkypeException{ 
-			
 	      // connect to the thing I'm tunnelling for 
 			log.debug("connected: A::"+stream.getApplication()+" SiD::"+stream.getId()+"{"+stream+"}");
-			SkypeRelay sr = new SkypeRelay ( 	stream,  	System.out  	); 
+			sr = new SkypeRelay ( 	stream,  	this.out  	); 
 			stream.addStreamListener(sr);
-			new Thread(sr,contact+"@skypeproxy#"+id ++).start(); 
+			new Thread(sr,"@skypeproxy#"+id ++).start(); 
 	    }
 
 	public void disconnected(Stream arg0) throws SkypeException {
-		// TODO
+		sr.destroy();
 	}
 
 }

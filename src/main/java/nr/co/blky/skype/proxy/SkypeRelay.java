@@ -9,16 +9,13 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Vector;
-import java.util.zip.Deflater;
-
-import org.apache.axis.utils.ByteArray;
+import java.util.Vector; 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import com.skype.SkypeException;
 import com.skype.Stream;
 import com.skype.StreamListener;
-import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
+ 
 
 public class SkypeRelay implements StreamListener, Runnable {
 
@@ -29,6 +26,14 @@ public class SkypeRelay implements StreamListener, Runnable {
 	private PrintStream out;
 	private boolean inited = false;
 
+	/**
+	 * start pure relay
+	 * 
+	 * @param stream
+	 * @param outputStream
+	 * @param inputStream
+	 * @param out
+	 */
 	public SkypeRelay(Stream stream, OutputStream outputStream,
 			InputStream inputStream, PrintStream out) {
 		this.skypeStream = stream;
@@ -40,20 +45,26 @@ public class SkypeRelay implements StreamListener, Runnable {
 
 	private final synchronized void initSocket(String tunnelhost, int tunnelport)
 			throws UnknownHostException, IOException {
-		log.debug("creating:" + tunnelhost + ":" + tunnelport + " ...");
+		log.debug("["+this.relayId+"] creating:" + tunnelhost + ":" + tunnelport + " ...");
 		Socket st = new Socket(tunnelhost, tunnelport);
-		log.debug("RELAY to " + tunnelhost + ":" + tunnelport + " STARTED.");
+		log.debug("["+this.relayId+"] RELAY to " + tunnelhost + ":" + tunnelport + " STARTED.");
 		this.outputStream = st.getOutputStream();
 		this.inputStream = st.getInputStream();
 		String stringFromTo = "SkypeTunnel: tunnelling  :>" + tunnelport + ":"
 				+ tunnelhost;
 
-		log.debug("INITED:" + stringFromTo);
+		log.debug("["+this.relayId+"]INITED:" + stringFromTo);
 
 	}
 
+	/**
+	 * start delayed realay (Server)
+	 * 
+	 * @param stream
+	 * @param out
+	 */
 	public SkypeRelay(Stream stream, PrintStream out) {
-		log.debug("RELAY STARTED..." + stream);
+		log.debug("["+this.relayId+"]RELAY STARTED..." + stream);
 		this.skypeStream = stream;
 		this.out = out;
 	}
@@ -80,7 +91,6 @@ public class SkypeRelay implements StreamListener, Runnable {
 
 					if (inited && arg0.indexOf(SiD + "#") == 0) { // do main job
 						try {
-
 							byte[] s2bTmp = s2b(arg0);
 							udpBufs[inCount % MAX_STACK_SIZE] = arg0;
 							this.outputStream.write(s2bTmp, 0, s2bTmp.length);
@@ -140,6 +150,8 @@ public class SkypeRelay implements StreamListener, Runnable {
 		}
 	}
 
+	
+	
 	private void fork(String arg0) throws UnknownHostException, IOException,
 			SkypeException {
 
@@ -147,7 +159,8 @@ public class SkypeRelay implements StreamListener, Runnable {
 		if (sr == null)
 			synchronized (arg0) {
 				if (sr == null) {
-					sr = new SkypeRelay(this.skypeStream, System.out);
+					
+					sr = new SkypeRelay(this.skypeStream, this.out );
 					// sr.performInit(arg0);
 					sr.textReceived(arg0);
 					skypeStream.addStreamListener(sr);
@@ -163,13 +176,7 @@ public class SkypeRelay implements StreamListener, Runnable {
 		}
 
 	}
-
-	private void performForward(String arg0) throws UnknownHostException,
-			IOException, SkypeException {
-		// String sidTmp = arg0.substring(0,arg0.indexOf("#"));
-		// SkypeRelay sr = relaysRepo.get(sidTmp);
-		// sr.textReceived(arg0);
-	}
+ 
 
 	public final static int BUFSIZ = 1024;
 	byte buf[] = new byte[BUFSIZ];
@@ -179,14 +186,14 @@ public class SkypeRelay implements StreamListener, Runnable {
 		// wait till socket...
 		while (!inited) {
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				log.error(this, e);
 			}
 		}
 		// do job..
 		try {
-			while ((n = this.inputStream.read(buf)) > 0) {
+			while (isAlive && ((n = this.inputStream.read(buf)) > 0)) {
 				skypeStream.write(b2s(buf, 0, n));
 				if (out != null)
 					out.write(buf, 0, n);
@@ -210,6 +217,7 @@ public class SkypeRelay implements StreamListener, Runnable {
 	String SiD = null;
 	// use Base64 as default encoding
 	String2ByteConverter myConverter = new Base64Converter();
+	private boolean isAlive = true;
 
 	private String b2s(byte[] buf2, int i, int n) {
 		String retval = myConverter.b2s(buf2, i, n);
@@ -220,11 +228,16 @@ public class SkypeRelay implements StreamListener, Runnable {
 		byte[] retval = myConverter.s2b(arg0);
 
 		try {
-			String sidTmp = arg0.substring(0, arg0.indexOf("#"));
+			
 			String data = arg0.substring(arg0.indexOf("#") + 1);
 			retval = myConverter.s2b(data);
 		} catch (Throwable e) {
 		}
 		return retval;
+	}
+
+	public void destroy() {
+		this.isAlive  = false;
+		
 	}
 }

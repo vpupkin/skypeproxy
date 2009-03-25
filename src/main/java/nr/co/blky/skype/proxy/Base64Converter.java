@@ -27,9 +27,10 @@ public class Base64Converter implements String2ByteConverter {
 	    int count = compressor.deflate( data.getBytes() );
 	    compressedBuff = org.apache.axis.encoding.Base64.decode(new String(compressedBuff));
 	    int diff = retval.length - compressedBuff.length;
-	    log.debug("diff:"+ (diff) +"   ((("+diffTotal + "/"+sizeTotal +"))" );
+	    log.debug("diff:"+ (diff) +"   ((("+diffTotal + "/"+sizeTotal +"))     count = "+ count );
 		sizeTotal += retval.length; 
 	    diffTotal +=diff;
+	    
 		return retval;
 	}	
 }
