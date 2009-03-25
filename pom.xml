@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>nr.co.blky</groupId>
 	<artifactId>skypeproxy</artifactId>
-	<version>0.0.7-SNAPSHOT</version>
+	<version>0.0.7</version>
 	<name>SkypeProxy</name>
 	<packaging>war</packaging>
 	<description>Skype proxy - TCP tunneling by using Skype(C)API
@@ -60,9 +60,9 @@
 		</license>
 	</licenses>
 	<scm>
-		<connection>scm:svn:https://skypeproxy.googlecode.com/svn/trunk</connection>
-		<developerConnection>scm:svn:https://skypeproxy.googlecode.com/svn/trunk</developerConnection>
-		<url>scm:svn:https://skypeproxy.googlecode.com/svn/trunk</url>
+		<connection>scm:svn:https://skypeproxy.googlecode.com/svn/tags/skypeproxy-0.0.7</connection>
+		<developerConnection>scm:svn:https://skypeproxy.googlecode.com/svn/tags/skypeproxy-0.0.7</developerConnection>
+		<url>scm:svn:https://skypeproxy.googlecode.com/svn/tags/skypeproxy-0.0.7</url>
 	</scm>
 	<organization>
 		<name>WWWGoogleCode</name>
