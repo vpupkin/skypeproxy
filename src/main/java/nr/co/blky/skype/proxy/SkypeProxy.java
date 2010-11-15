@@ -1,6 +1,8 @@
 package nr.co.blky.skype.proxy;
  
 import java.io.File; 
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -50,7 +52,7 @@ DESCRIPTION
 EXAMPLES
        To listen for incoming connections from anyone type:
 
-       skypeproxy myID listen '*'
+       skypeproxy listen 
 
        To  listen  for  incoming  connections from the contact Vasilij.Pupkin
        type:
@@ -96,8 +98,10 @@ public class SkypeProxy {
 		}
         Skype.setDebug(false);
         Skype.setDeamon(false);
-        String idTmp = "GESHA";//""+SkypeProxy.class.getName().hashCode(); 
+        String idTmp = "GESHA";//here is default Application-ID for all version.
+        
         Application application = Skype.addApplication(idTmp);
+        System.out.println("connected as listener for app ["+application+"]");
         
         //par#0
         String COMMAND = args[0];
@@ -105,7 +109,9 @@ public class SkypeProxy {
          *   skypeproxy listen 
          */
         if (LISTEN.equals(COMMAND)){
-        	application.addApplicationListener(new TunnelServer(System.out));
+        	PrintStream outTmp = System.out;
+			TunnelServer tunnelServer = new TunnelServer(outTmp);
+			application.addApplicationListener(tunnelServer);
         }else
         if(SEND.equals(COMMAND)){
             /*
@@ -144,8 +150,11 @@ public class SkypeProxy {
             		  TunnelServer.LISTENHOST+"="+ "LOCALHOST"+ TunnelServer.EOL
             		  );
                
-            final PrintStream traceOut = new PrintStream(new File("trace.log"));
-			final SkypeRelay tc = new SkypeRelay(skypeStream,sc.getOutputStream(),sc.getInputStream(),traceOut );
+            File traceFileTmp = new File("trace.log");
+			final PrintStream traceOut = new PrintStream(traceFileTmp);
+			OutputStream outS = sc.getOutputStream();
+			InputStream inS = sc.getInputStream();
+			final SkypeRelay tc = new SkypeRelay(skypeStream,outS,inS,traceOut );
 				tc.SiD = SiD;
               skypeStream.addStreamListener(tc);
   			  String stringFromTo = "*:"+LOCALPORT+"->"+CONTACT+"@"+HOST+":"+PORT+" SiD:"+SiD+ "//getID="+skypeStream.getId();
@@ -162,6 +171,7 @@ public class SkypeProxy {
 	private static void usage() {
 		String text = "SYNTAX\n" +
 				"       skypeproxy send <contact> <localport> <remotehost> <remoteport>\n" +
+				// always appID== 'GESHA'
 				"       skypeproxy listen \n";
 		System.out.println(text );
 	}

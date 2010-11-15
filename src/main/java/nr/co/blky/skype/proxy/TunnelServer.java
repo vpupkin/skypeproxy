@@ -7,6 +7,12 @@ import com.skype.ApplicationListener;
 import com.skype.SkypeException;
 import com.skype.Stream;
 
+/**
+ * server tunnel the Skype-messages into external socket-connection.
+ * 
+ * @author vipup
+ *
+ */
 public class TunnelServer implements ApplicationListener {
 
 	static final String HOST = "host";
@@ -22,6 +28,7 @@ public class TunnelServer implements ApplicationListener {
   	SkypeRelay  sr =null;
 	
 	public TunnelServer(PrintStream out) {
+		log.debug("create TunnelServer");
 		this.out = out;
  	}
 

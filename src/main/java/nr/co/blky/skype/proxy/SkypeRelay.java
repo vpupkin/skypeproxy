@@ -58,7 +58,7 @@ public class SkypeRelay implements StreamListener, Runnable {
 	}
 
 	/**
-	 * start delayed realay (Server)
+	 * start delayed relay (Server): <listen>-mode 
 	 * 
 	 * @param stream
 	 * @param out
@@ -114,7 +114,7 @@ public class SkypeRelay implements StreamListener, Runnable {
 						}
 						return; // ignore
 					} else {
-						// log.debug("SiD:=="+SiD+"????????<<<["+arg0+"]>>>????????????????");
+						 log.debug( "SiD:=="+SiD+"????????<<<["+arg0+"]>>>????????????????");
 					}
 				}
 			}
