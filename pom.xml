@@ -72,14 +72,10 @@
 	<build>
 <!-- SVN -->
         <extensions>
-			<extension>
-
-				<groupId>org.apache.maven.wagon</groupId>
-
-				<artifactId>wagon-webdav</artifactId>
-
-				<version>1.0-beta-2</version>
-
+			<extension> 
+				<groupId>org.apache.maven.wagon</groupId> 
+				<artifactId>wagon-webdav</artifactId> 
+				<version>1.0-beta-2</version> 
 			</extension>
             <extension>
                 <groupId>org.jvnet.wagon-svn</groupId>
@@ -137,6 +133,14 @@
 		</plugins>
 	</build>
 	<dependencies>
+          <!-- lets use log4j! -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.5.6</version>
+            
+        </dependency>
+        	
                 <dependency>
                         <groupId>junit</groupId>
                         <artifactId>junit</artifactId>
