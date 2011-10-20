@@ -69,7 +69,19 @@
 		<url>http://skypeproxy.googlecode.com/svn/siteroot/index.html
 		</url>
 	</organization>
+	
+	
+	
 	<build>
+	<resources>
+		<resource>
+			<directory>src/main/profile</directory>
+			<filtering>true</filtering>
+			<includes>
+				<include>log4j.properties</include>
+			</includes>
+		</resource>
+	</resources>
 <!-- SVN -->
         <extensions>
 			<extension> 
@@ -133,7 +145,7 @@
 		</plugins>
 	</build>
 	<dependencies>
-	<!-- TODO 4 Gtalk  still not work with proxy !-->
+	<!-- TODO 4 Gtalk  still not work with proxy ! -->
 	<dependency>
 	    <groupId>org.igniterealtime.smack</groupId>
 	    <artifactId>smack</artifactId>

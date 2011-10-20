@@ -56,7 +56,7 @@ public class GtalkAppender extends AppenderSkeleton {
 	    Message msg = new Message(receiver, Message.Type.chat);
 	    msg.setBody(getLayout().format(event));
 	    connection.sendPacket(msg);
-	    connection.disconnect();
+	    
 	  }
 
 
@@ -83,6 +83,7 @@ public class GtalkAppender extends AppenderSkeleton {
 
 	  @Override
 	  public void close() {
+		connection.disconnect();
 	  }
 
 	public String getPassword() { 

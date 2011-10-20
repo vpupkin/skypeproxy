@@ -1,5 +1,7 @@
 package eu.blky.log4j;
 
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,9 +30,9 @@ public class BeepAppenderTest extends TestCase {
 	 * @author vipup
 	 */
 	public void testBeep(){
-		log.trace("tes...");
-		log.debug("test");
-		log.info("testI");
+		log.trace("Ttest@{}:{}",this.getName(),new Date());
+		log.debug("Dtest@{}:{}",this.getName(),new Date());
+		log.info("Itest@{}:{}",this.getName(),new Date());
 	}
 
 }

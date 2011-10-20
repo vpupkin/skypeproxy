@@ -1,5 +1,7 @@
 package eu.blky.log4j;
 
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;  
 import junit.framework.TestCase;
@@ -32,10 +34,10 @@ log4j.category.eu.blky.log4j.SkypeAppenderTest==DEBUG, SKYPE
 	 */
 	
 	public void testLog(){
-		// TODO uncomment it at the log4j.properties
-		log.trace("tes...");
-		log.debug("test");
-		log.info("testI");
+		log.trace("Ttest@{}:{}",this.getName(),new Date());
+		log.debug("Dtest@{}:{}",this.getName(),new Date());
+		log.info("Itest@{}:{}",this.getName(),new Date());
+
 	}
 
 
