@@ -133,6 +133,14 @@
 		</plugins>
 	</build>
 	<dependencies>
+	<!-- TODO 4 Gtalk  still not work with proxy !-->
+	<dependency>
+	    <groupId>org.igniterealtime.smack</groupId>
+	    <artifactId>smack</artifactId>
+	    <version>3.2.1</version>
+	    
+	</dependency>
+	
           <!-- lets use log4j! -->
         <dependency>
             <groupId>org.slf4j</groupId>
