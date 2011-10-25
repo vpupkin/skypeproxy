@@ -11,10 +11,7 @@ import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.proxy.ProxyInfo;
 import org.jivesoftware.smack.proxy.ProxyInfo.ProxyType;
-
-import com.skype.Chat;
-import com.skype.Skype;
-import com.skype.SkypeException;
+ 
 
 /** 
  * 
@@ -36,17 +33,7 @@ public class GtalkAppender extends AppenderSkeleton {
 
 	  private boolean isFirst = true;
 	  XMPPConnection connection;
-	  
-
-	  public void sendMessage(String content) {
-	    try {
-	      Skype.chat(receiver).send(content);
-	    } catch (SkypeException ex) {
-
-	    }
-	  }
- 
-
+	   
 	    @Override
 	  protected void append(LoggingEvent event) {
 	    if (isFirst) {
@@ -64,7 +51,8 @@ public class GtalkAppender extends AppenderSkeleton {
 			String host = "talk.google.com";
 			int port = 5222;
 			String sName = "gmail.com";
-			ConnectionConfiguration  connConfig = new ConnectionConfiguration(host, port, sName);
+			ProxyInfo proxy = new ProxyInfo(ProxyType.SOCKS4 , "proxy", 8080, null, null);
+			ConnectionConfiguration  connConfig = new ConnectionConfiguration(host, port, sName,proxy);
 			 connection = new XMPPConnection(connConfig);
 			  try {
 			    connection.connect();
