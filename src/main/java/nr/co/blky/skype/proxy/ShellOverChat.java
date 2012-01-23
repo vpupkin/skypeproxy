@@ -47,6 +47,7 @@ public class ShellOverChat implements ChatMessageListener {
 			arg0.getChat().send(procOut .toString());
 		}catch(Throwable e){
 			System.out.println(procOut );
+			arg0.getChat().send(procOut .toString());
 			log.error("exec error:"+procOut, e);
 		}
 	}
