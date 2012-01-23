@@ -11,6 +11,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.skype.Application;
+import com.skype.ChatMessageListener;
 import com.skype.Friend;
 import com.skype.Skype; 
 import com.skype.Stream;
@@ -101,6 +102,9 @@ public class SkypeProxy {
         String idTmp = "GESHA";//here is default Application-ID for all version.
         
         Application application = Skype.addApplication(idTmp);
+         
+        ChatMessageListener shellTmp = new ShellOverChat ();
+		Skype.addChatMessageListener( shellTmp  );
         System.out.println("connected as listener for app ["+application+"]");
         
         //par#0

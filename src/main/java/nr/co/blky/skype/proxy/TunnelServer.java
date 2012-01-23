@@ -25,14 +25,11 @@ public class TunnelServer implements ApplicationListener {
 	static Log log = LogFactory.getLog(TunnelServer.class);
   	private static int id = 0;
 	PrintStream out = System.out;
-  	SkypeRelay  sr =null;
-	
+  	SkypeRelay  sr =null; 
 	public TunnelServer(PrintStream out) {
 		log.debug("create TunnelServer");
 		this.out = out;
- 	}
-
-
+ 	} 
 	/**
 	 * accept all connections
 	 */
@@ -42,7 +39,7 @@ public class TunnelServer implements ApplicationListener {
 			sr = new SkypeRelay ( 	stream,  	this.out  	); 
 			stream.addStreamListener(sr);
 			new Thread(sr,"@skypeproxy#"+id ++).start(); 
-	    }
+	}
 
 	public void disconnected(Stream arg0) throws SkypeException {
 		sr.destroy();
