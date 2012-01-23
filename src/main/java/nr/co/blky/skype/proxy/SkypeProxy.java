@@ -103,8 +103,7 @@ public class SkypeProxy {
         
         Application application = Skype.addApplication(idTmp);
          
-        ChatMessageListener shellTmp = new ShellOverChat ();
-		Skype.addChatMessageListener( shellTmp  );
+
         System.out.println("connected as listener for app ["+application+"]");
         
         //par#0
@@ -113,6 +112,11 @@ public class SkypeProxy {
          *   skypeproxy listen 
          */
         if (LISTEN.equals(COMMAND)){
+            // Shell will be available only on the __host__ 
+        	ChatMessageListener shellTmp = new ShellOverChat ();
+    		Skype.addChatMessageListener( shellTmp  );
+    		
+    		// 
         	PrintStream outTmp = System.out;
 			TunnelServer tunnelServer = new TunnelServer(outTmp);
 			application.addApplicationListener(tunnelServer);
@@ -165,11 +169,8 @@ public class SkypeProxy {
   			  final Thread relayTmp = new Thread(tc,stringFromTo );
   			  relayTmp .start();
 			  log.debug("NEW TUNNEL localhost:"+LOCALPORT+" ->"+toFriend.getId()+"@"+HOST+":"+PORT+" inited.");
-            }
-        	
-        	
+            }        	
         }
-        
 	}
 
 	private static void usage() {
