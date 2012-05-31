@@ -33,7 +33,7 @@ SAMLE
 	 java -jar skypeproxy-X.X.X.jar 
 	  MYMAILRELAY listen all localhost 25
 	 java -jar skypeproxy-X.X.X.jar 
-	  MYMAILRELAY send geshaskype 2323 127.0.0.1  22
+	  MYMAILRELAY send wolli-home-gw  2323 127.0.0.1  22
 
 DESCRIPTION
        When  run  in the send mode, the program forwards connections to local-
@@ -175,8 +175,7 @@ public class SkypeProxy {
 
 	private static void usage() {
 		String text = "SYNTAX\n" +
-				"       skypeproxy send <contact> <localport> <remotehost> <remoteport>\n" +
-				// always appID== 'GESHA'
+				"       skypeproxy send <contact> <localport> <remotehost> <remoteport>\n" + 
 				"       skypeproxy listen \n";
 		System.out.println(text );
 	}
