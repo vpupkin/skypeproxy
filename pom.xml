@@ -5,7 +5,7 @@
 	<artifactId>skypeproxy</artifactId>
 	<version>0.0.9-SNAPSHOT</version>
 	<name>SkypeProxy</name>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<description>Skype proxy - TCP tunneling by using Skype(C)API
 	</description>
 	<issueManagement>
