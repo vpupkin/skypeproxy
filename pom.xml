@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>nr.co.blky</groupId>
 	<artifactId>skypeproxy</artifactId>
-	<version>0.0.10-SNAPSHOT</version>
+	<version>0.0.9-SNAPSHOT</version>
 	<name>SkypeProxy</name>
 	<packaging>war</packaging>
 	<description>Skype proxy - TCP tunneling by using Skype(C)API
